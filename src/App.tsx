@@ -12,6 +12,7 @@ function App() {
   const [clienteEditando, setClienteEditando] = useState<Cliente | null>(null);
   const [pendingDeleteId, setPendingDeleteId] = useState<number | null>(null);
   const [clienteParaDeletar, setClienteParaDeletar] = useState<Cliente | null>(null);
+  const [formKey, setFormKey] = useState(0);
   const queryClient = useQueryClient();
   const { dark, toggleTheme } = useTheme();
 
@@ -39,10 +40,20 @@ function App() {
           ? "Cliente atualizado com sucesso!"
           : "Cliente cadastrado com sucesso!"
       );
+
       setClienteEditando(null);
+      setFormKey(prev => prev + 1);
+
       await queryClient.invalidateQueries({ queryKey: ["clientes"] });
     },
-    onError: () => {
+    onError: (error: any) => {
+      const msg = error?.message?.toLowerCase() || "";
+
+      if (msg.includes("duplicate") || msg.includes("unique")) {
+        toast.error("Email já cadastrado");
+        return;
+      }
+
       toast.error("Erro ao salvar cliente");
     },
   });
@@ -71,7 +82,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900 transition-colors duration-300 dark:bg-gray-950 dark:text-gray-100">
+    <div className="h-screen overflow-hidden bg-gray-100 text-gray-900 transition-colors duration-300 dark:bg-gray-950 dark:text-gray-100">
       <Toaster
         position="top-right"
         toastOptions={{
@@ -82,15 +93,16 @@ function App() {
         }}
       />
 
-      <div className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-5 p-4 md:p-6">
-        <header className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200/70 dark:bg-gray-900 dark:ring-gray-800">
+      <div className="mx-auto flex h-full w-full max-w-4xl flex-col p-4 md:p-6">
+        
+        <header className="mb-5 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200/70 dark:bg-gray-900 dark:ring-gray-800">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
                 Sistema de Clientes
               </h1>
               <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                Cadastro, edição e remoção com interface animada.
+                Cadastro, edição e remoção com interface animada • Desenvolvido por Arthur Eduardo Silva
               </p>
             </div>
 
@@ -103,45 +115,62 @@ function App() {
           </div>
         </header>
 
-        <ClienteForm
-          onSubmit={async (data) => {
-            await saveMutation.mutateAsync(data);
-          }}
-          clienteEditando={clienteEditando}
-          cancelarEdicao={() => setClienteEditando(null)}
-          loading={saveMutation.isPending}
-        />
+        <div className="mb-5">
+          <ClienteForm
+            key={formKey}
+            onSubmit={async (data) => {
+              await saveMutation.mutateAsync(data);
+            }}
+            clienteEditando={clienteEditando}
+            cancelarEdicao={() => setClienteEditando(null)}
+            loading={saveMutation.isPending}
+          />
+        </div>
 
-        <ClienteList
-          clientes={data}
-          onEdit={(cliente) => {
-            setClienteEditando(cliente);
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
-          onDelete={(id) => {
-            const cliente = data.find(c => c.id === id);
-            if (cliente) deletar(cliente);
-          }}
-          loading={isLoading}
-          fetching={isFetching}
-          deletingId={pendingDeleteId}
-        />
+        <div className="flex-1 min-h-0 mb-5">
+          <ClienteList
+            clientes={data}
+            onEdit={(cliente) => {
+              setClienteEditando(cliente);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            onDelete={(id) => {
+              const cliente = data.find(c => c.id === id);
+              if (cliente) deletar(cliente);
+            }}
+            loading={isLoading}
+            fetching={isFetching}
+            deletingId={pendingDeleteId}
+          />
+        </div>
 
-        <ConfirmModal
-          open={!!clienteParaDeletar}
-          title="Confirmar exclusão"
-          description={`Deseja realmente deletar ${clienteParaDeletar?.nome}?`}
-          confirmText="Deletar"
-          cancelText="Cancelar"
-          loading={deleteMutation.isPending}
-          onCancel={() => setClienteParaDeletar(null)}
-          onConfirm={() => {
-            if (!clienteParaDeletar) return;
-            deleteMutation.mutate(clienteParaDeletar.id);
-            setClienteParaDeletar(null);
-          }}
-        />
+        <footer className="rounded-2xl bg-white p-4 text-center text-sm text-gray-500 shadow-sm ring-1 ring-gray-200/70 dark:bg-gray-900 dark:text-gray-400 dark:ring-gray-800">
+          Desenvolvido por{" "}
+          <a
+            href="https://github.com/Arthss/"
+            target="_blank"
+            className="font-medium text-blue-600 hover:underline dark:text-blue-400"
+          >
+            Arthur Eduardo Silva
+          </a>
+        </footer>
+
       </div>
+
+      <ConfirmModal
+        open={!!clienteParaDeletar}
+        title="Confirmar exclusão"
+        description={`Deseja realmente deletar ${clienteParaDeletar?.nome}?`}
+        confirmText="Deletar"
+        cancelText="Cancelar"
+        loading={deleteMutation.isPending}
+        onCancel={() => setClienteParaDeletar(null)}
+        onConfirm={() => {
+          if (!clienteParaDeletar) return;
+          deleteMutation.mutate(clienteParaDeletar.id);
+          setClienteParaDeletar(null);
+        }}
+      />
     </div>
   );
 }

@@ -20,13 +20,13 @@ export function ClienteList({
 }: Props) {
   if (loading) {
     return (
-      <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200/70 dark:bg-gray-900 dark:ring-gray-800">
+      <section className="flex h-full flex-col overflow-hidden rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200/70 dark:bg-gray-900 dark:ring-gray-800">
         <div className="mb-4 flex items-center justify-between">
           <div className="h-6 w-40 animate-pulse rounded-full bg-gray-200 dark:bg-gray-800" />
           <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-blue-500 dark:border-gray-700 dark:border-t-blue-400" />
         </div>
 
-        <div className="space-y-3">
+        <div className="flex-1 space-y-3 overflow-y-auto">
           <div className="h-24 animate-pulse rounded-2xl bg-gray-100 dark:bg-gray-800" />
           <div className="h-24 animate-pulse rounded-2xl bg-gray-100 dark:bg-gray-800" />
           <div className="h-24 animate-pulse rounded-2xl bg-gray-100 dark:bg-gray-800" />
@@ -36,7 +36,8 @@ export function ClienteList({
   }
 
   return (
-    <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200/70 dark:bg-gray-900 dark:ring-gray-800">
+    <section className="flex h-full flex-col overflow-hidden rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200/70 dark:bg-gray-900 dark:ring-gray-800">
+      
       <div className="mb-4 flex items-center justify-between gap-3">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
           Lista de clientes
@@ -51,11 +52,11 @@ export function ClienteList({
       </div>
 
       {clientes.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-gray-300 p-6 text-center text-gray-500 dark:border-gray-700 dark:text-gray-400">
+        <div className="flex-1 flex items-center justify-center rounded-2xl border border-dashed border-gray-300 text-gray-500 dark:border-gray-700 dark:text-gray-400">
           Nenhum cliente cadastrado
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="flex-1 overflow-y-auto space-y-3 pr-1">
           <AnimatePresence mode="popLayout">
             {clientes.map((cliente) => (
               <motion.article
