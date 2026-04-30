@@ -82,7 +82,7 @@ function App() {
   };
 
   return (
-    <div className="h-screen overflow-hidden bg-gray-100 text-gray-900 transition-colors duration-300 dark:bg-gray-950 dark:text-gray-100">
+    <div className="min-h-screen overflow-auto md:h-screen md:overflow-hidden bg-gray-100 text-gray-900 transition-colors duration-300 dark:bg-gray-950 dark:text-gray-100">
       <Toaster
         position="top-right"
         toastOptions={{
@@ -93,7 +93,7 @@ function App() {
         }}
       />
 
-      <div className="mx-auto flex h-full w-full max-w-4xl flex-col p-4 md:p-6">
+      <div className="mx-auto flex min-h-full w-full max-w-4xl flex-col p-4 md:h-full md:p-6">
         
         <header className="mb-5 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-200/70 dark:bg-gray-900 dark:ring-gray-800">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

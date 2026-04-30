@@ -56,7 +56,7 @@ export function ClienteList({
           Nenhum cliente cadastrado
         </div>
       ) : (
-        <div className="flex-1 overflow-y-auto space-y-3 pr-1">
+        <div className="md:flex-1 md:overflow-y-auto space-y-3 pr-1">
           <AnimatePresence mode="popLayout">
             {clientes.map((cliente) => (
               <motion.article
