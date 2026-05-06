@@ -1,73 +1,88 @@
-# React + TypeScript + Vite
+# 🚀 CRUD de Clientes (Supabase + React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web para gerenciamento de clientes utilizando **Supabase como backend (BaaS)** e frontend moderno com React.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌐 Acesse o projeto
 
-## React Compiler
+👉 https://clientes-arthur.vercel.app/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📸 Preview
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+![preview](./public/preview.png)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🧠 Arquitetura
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Este projeto utiliza uma abordagem moderna baseada em **Backend as a Service (BaaS)**:
+
+* Frontend → React (Vercel)
+* Backend → Supabase (API + Banco de dados)
+* Backend auxiliar → Laravel (estrutura local para modelagem e testes)
+
+---
+
+## ✨ Funcionalidades
+
+* ➕ Cadastro de clientes
+* 📋 Listagem de clientes
+* ✏️ Atualização de dados
+* ❌ Remoção de clientes
+* 🔍 Validação de campos
+* 🔔 Feedback visual (sucesso/erro)
+* ⏳ Estados de loading
+* 📱 Interface responsiva
+
+---
+
+## 🛠️ Tecnologias
+
+* React
+* TypeScript
+* TailwindCSS
+* Supabase (API + Database)
+* Axios
+
+---
+
+## ⚙️ Como rodar localmente
+
+```bash id="f1a2b3"
+git clone https://github.com/Arthss/crud-clientes-frontend
+cd crud-clientes-frontend
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🔌 Configuração do Supabase
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Crie um `.env`:
+
+```env id="supabase1"
+VITE_SUPABASE_URL=YOUR_SUPABASE_URL
+VITE_SUPABASE_ANON_KEY=YOUR_SUPABASE_KEY
 ```
+
+---
+
+## 🎯 Objetivo
+
+Este projeto foi desenvolvido para demonstrar:
+
+* Integração com APIs modernas (BaaS)
+* Arquitetura desacoplada
+* Boas práticas de frontend
+* Experiência do usuário
+
+---
+
+## 👨‍💻 Autor
+
+Arthur Eduardo Silva
+https://github.com/Arthss
