@@ -1,40 +1,37 @@
-import { supabase } from "../lib/supabase";
+import { executarSql, obterBanco, consultarClientes } from "../lib/database";
 import type { Cliente } from "../types/cliente";
 
 export const clienteService = {
-  async listar(): Promise<Cliente[]> {
-    const { data, error } = await supabase
-      .from("clientes")
-      .select("*")
-      .order("id", { ascending: true });
+    async listar(): Promise<Cliente[]> {
+        await obterBanco();
 
-    if (error) throw error;
-    return data ?? [];
-  },
+        return consultarClientes<Cliente>("SELECT id, nome, email, telefone FROM clientes ORDER BY id ASC");
+    },
 
-  async criar(data: Omit<Cliente, "id">): Promise<void> {
-    const { error } = await supabase
-      .from("clientes")
-      .insert([data]);
+    async criar(data: Omit<Cliente, "id">): Promise<void> {
+        await obterBanco();
 
-    if (error) throw error;
-  },
+        executarSql("INSERT INTO clientes (nome, email, telefone) VALUES (?, ?, ?)", [
+            data.nome,
+            data.email,
+            data.telefone,
+        ]);
+    },
 
-  async atualizar(id: number, data: Omit<Cliente, "id">): Promise<void> {
-    const { error } = await supabase
-      .from("clientes")
-      .update(data)
-      .eq("id", id);
+    async atualizar(id: number, data: Omit<Cliente, "id">): Promise<void> {
+        await obterBanco();
 
-    if (error) throw error;
-  },
+        executarSql("UPDATE clientes SET nome = ?, email = ?, telefone = ? WHERE id = ?", [
+            data.nome,
+            data.email,
+            data.telefone,
+            id,
+        ]);
+    },
 
-  async deletar(id: number): Promise<void> {
-    const { error } = await supabase
-      .from("clientes")
-      .delete()
-      .eq("id", id);
+    async deletar(id: number): Promise<void> {
+        await obterBanco();
 
-    if (error) throw error;
-  },
+        executarSql("DELETE FROM clientes WHERE id = ?", [id]);
+    },
 };

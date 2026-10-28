@@ -20,32 +20,32 @@ Aplicação web para gerenciamento de clientes utilizando **Supabase como backen
 
 Este projeto utiliza uma abordagem moderna baseada em **Backend as a Service (BaaS)**:
 
-* Frontend → React (Vercel)
-* Backend → Supabase (API + Banco de dados)
-* Backend auxiliar → Laravel (estrutura local para modelagem e testes)
+- Frontend → React (Vercel)
+- Backend → Supabase (API + Banco de dados)
+- Backend auxiliar → Laravel (estrutura local para modelagem e testes)
 
 ---
 
 ## ✨ Funcionalidades
 
-* ➕ Cadastro de clientes
-* 📋 Listagem de clientes
-* ✏️ Atualização de dados
-* ❌ Remoção de clientes
-* 🔍 Validação de campos
-* 🔔 Feedback visual (sucesso/erro)
-* ⏳ Estados de loading
-* 📱 Interface responsiva
+- ➕ Cadastro de clientes
+- 📋 Listagem de clientes
+- ✏️ Atualização de dados
+- ❌ Remoção de clientes
+- 🔍 Validação de campos
+- 🔔 Feedback visual (sucesso/erro)
+- ⏳ Estados de loading
+- 📱 Interface responsiva
 
 ---
 
 ## 🛠️ Tecnologias
 
-* React
-* TypeScript
-* TailwindCSS
-* Supabase (API + Database)
-* Axios
+- React
+- TypeScript
+- TailwindCSS
+- Supabase (API + Database)
+- Axios
 
 ---
 
@@ -75,10 +75,10 @@ VITE_SUPABASE_ANON_KEY=YOUR_SUPABASE_KEY
 
 Este projeto foi desenvolvido para demonstrar:
 
-* Integração com APIs modernas (BaaS)
-* Arquitetura desacoplada
-* Boas práticas de frontend
-* Experiência do usuário
+- Integração com APIs modernas (BaaS)
+- Arquitetura desacoplada
+- Boas práticas de frontend
+- Experiência do usuário
 
 ---
 
